@@ -1,0 +1,9 @@
+[package]
+name = "_3macro"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.94"
+futures = "0.3.31"
+tokio = {version = "1.37.0", features = ["rt", "rt-multi-thread", "macros"]}
