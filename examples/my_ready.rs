@@ -1,8 +1,20 @@
-use _3macro::my_ready;
+
 use std::future::Future;
 use std::pin::Pin;
 use std::task::{Context, Poll};
 use futures::task::noop_waker_ref;
+
+
+#[macro_export]
+macro_rules! my_ready {
+    ($expr: expr) => {
+        match $expr {
+            std::task::Poll::Ready(t) => std::task::Poll::Ready(t),
+            std::task::Poll::Pending => std::task::Poll::Pending,
+
+        }
+    };
+}
 
 #[tokio::main]
 async fn main() {

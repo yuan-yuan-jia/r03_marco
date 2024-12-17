@@ -1,5 +1,14 @@
 use anyhow::{anyhow, Result};
-use _3macro::my_try;
+
+#[macro_export]
+macro_rules! my_try {
+    ($expr: expr) => {
+        match $expr {
+            Ok(val) => val,
+            Err(err) => return Err(err.into()),
+        }
+    };
+}
 
 fn main() -> Result<()>{
     let ret = f3(f2(f1("hello")?)?)?;
