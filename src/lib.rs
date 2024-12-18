@@ -15,6 +15,9 @@ pub fn derive_enum_from(input: TokenStream) -> TokenStream {
     // get the ident
     let ident = input.ident;
 
+    // get the generic
+    let generics = input.generics;
+
     // for each variant, get hte ident and fields
     let from_impls = variants.iter().map(|variant| {
         let variant_ident = &variant.ident;
@@ -28,7 +31,7 @@ pub fn derive_enum_from(input: TokenStream) -> TokenStream {
                     let field = fields.unnamed.first().expect("should have 1 field");
                     let ty = &field.ty;
                     quote! {
-                        impl From<#ty> for #ident {
+                        impl #generics From<#ty> for #ident #generics {
                             fn from(x: #ty) -> Self {
                                 #ident::#variant_ident(x)
                             }

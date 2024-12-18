@@ -2,8 +2,8 @@ use _3macro::EnumFrom;
 
 #[allow(unused)]
 #[derive(Debug, EnumFrom)]
-enum Direction {
-    Up(DirectionUp),
+enum Direction<T> {
+    Up(DirectionUp<T>),
     Down,
     Left(u32),
     Right {a: u32},
@@ -11,13 +11,13 @@ enum Direction {
 
 #[derive(Debug)]
 #[allow(unused)]
-struct DirectionUp {
-    speed: u32,
+struct DirectionUp<T> {
+    speed: T,
 }
 
-impl DirectionUp {
+impl <T> DirectionUp<T> {
 
-    fn new(speed: u32) -> Self {
+    fn new(speed: T) -> Self {
         Self {
             speed,
         }
@@ -33,8 +33,8 @@ impl DirectionUp {
 
 fn main() {
 
-    let up: Direction = DirectionUp::new(42).into();
-    let left: Direction = 10.into();
+    let up: Direction<i32> = DirectionUp::new(42).into();
+    let left: Direction<i32> = 10.into();
     println!("{:?}, {:?}", up, left);
 
 }
